@@ -50,29 +50,20 @@ Toggl.todaytask = function() {
   var res = UrlFetchApp.fetch(url, options);
   res = JSON.parse(res);
   var len = res.length;
-  /*
-  // 今日のタスクのみ抜き出す
-  var today2 = Date_hundle.format2(date);
-  var regexp = new RegExp(today2);
-  var result = [];
-  for (var i = 0;i < len; i++) {
-    if (res[i]["start"].match(today2) != null) {
-      result.push(res[i])
-    }
-  }
   
-  res = result;
-  len = res.length;
-  */
-  
+  var sum = 0.0;
   message += today + "の勉強時間は以下の通りです。\n";
   if (len >= 1) {
     for (var i = 0; i < len; i++ ) {
       var name = res[i]["description"];
       var dur = res[i]["duration"];
+      sum += dur;
       var hms = Date_hundle.toHms(dur);
       message += name + ":" + hms + "\n";
     }
+    hms = Date_hundle.toHms(sum);
+    message += "==================\n";
+    message += "延べ" + hms + "です。\n";
   } else {
     message += "本日は勉強していません。\n";
   }
