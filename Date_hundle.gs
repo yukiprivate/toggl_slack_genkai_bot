@@ -18,6 +18,25 @@ Date_hundle.format = function(date) {
   return y + '/' + m + '/' + d;
 }
 
+Date_hundle.format2 = function(date) {
+  var y = date.getFullYear();
+  var m = date.getMonth() + 1;
+  var d = date.getDate();
+  var w = date.getDay();
+  var wNames = ['日', '月', '火', '水', '木', '金', '土'];
+    
+  if (m < 10) {
+    m = '0' + m;
+  }
+  if (d < 10) {
+    d = '0' + d;
+  }
+  
+  // フォーマット整形済みの文字列を戻り値にする
+  var start_date = y + '-' + m + '-' + d + 'T00%3A00%3A00%2B09%3A00';
+  return start_date;
+}
+
 Date_hundle.toHms = function(t) {
 	var hms = "";
 	var h = t / 3600 | 0;
