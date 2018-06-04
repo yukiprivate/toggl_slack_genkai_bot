@@ -30,13 +30,15 @@ Toggl.todaytask = function() {
   
   var date = new Date();
   var today = Date_hundle.format(date);
+  var start_date = Date_hundle.format2(date);
+  
+  url = url + "?start_date=" + start_date;
+  Logger.log(url);
   
   
   var params = {
     'user_agent' : PropertiesService.getScriptProperties().getProperty('MAIL'),
-    'workspace_id' : this.ID,
-    'start' : today,
-    'until' : today
+    'workspace_id' : this.ID
   }
   
   var options = {
@@ -48,9 +50,23 @@ Toggl.todaytask = function() {
   var res = UrlFetchApp.fetch(url, options);
   res = JSON.parse(res);
   var len = res.length;
+  /*
+  // 今日のタスクのみ抜き出す
+  var today2 = Date_hundle.format2(date);
+  var regexp = new RegExp(today2);
+  var result = [];
+  for (var i = 0;i < len; i++) {
+    if (res[i]["start"].match(today2) != null) {
+      result.push(res[i])
+    }
+  }
+  
+  res = result;
+  len = res.length;
+  */
   
   message += today + "の勉強時間は以下の通りです。\n";
-  if (len > 1) {
+  if (len >= 1) {
     for (var i = 0; i < len; i++ ) {
       var name = res[i]["description"];
       var dur = res[i]["duration"];
