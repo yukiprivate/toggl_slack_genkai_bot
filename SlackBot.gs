@@ -3,8 +3,8 @@ var SlackBot = new Object();
 SlackBot.main = function() {
   var token = PropertiesService.getScriptProperties().getProperty("SLACK_ACCESS_TOKEN_SHIKOKU");
   
-  var channel_id = "院試ヤバイマン";
-  var bot_name = "田舎の学生";
+  var channel_id = "***";
+  var bot_name = "***";
   var app = SlackApp.create(token);
   //var name = e.parameter.user_name;
   //var text = e.parameter.text;
